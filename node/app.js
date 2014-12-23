@@ -77,7 +77,7 @@ var AWS = require('aws-sdk'),
     if( err !== null ){
       throw err; 
     }
-    fs.writeFile('./test.json', JSON.stringify(data), function() {} );
+    //fs.writeFile('./test.json', JSON.stringify(data), function() {} );
     collections.subnets = data.Subnets || [];
     
     loadCallback();
@@ -185,11 +185,8 @@ var AWS = require('aws-sdk'),
   // ================================
   generatorCallback = function () {
     
-    // TODO
-    console.info('###WARN###');
-    console.info('Change 127.0.0.1 to an actual build-url.');
+    // TODO ( removed )
     
-    open('http://127.0.0.1');
   };
   
   // ================================
