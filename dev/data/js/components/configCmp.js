@@ -16,7 +16,9 @@
         innerRadius: 0
       },
       link: {
-        interpolation: 'basis', // https://github.com/mbostock/d3/wiki/SVG-Shapes#line_interpolate
+        
+        // https://github.com/mbostock/d3/wiki/SVG-Shapes#line_interpolate
+        interpolation: 'basis',
         tension: .5,
         radius: function (point) {
           return point.y; 
@@ -26,7 +28,7 @@
         }
       },
       data: {
-        url: './data/json/vpc-0eccd76c.json',
+        url: config.vpcTarget,
         filterNodes: config.nodesFilter,
         filterLinks: config.linksFilter
       }

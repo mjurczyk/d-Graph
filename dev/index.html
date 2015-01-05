@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./data/css/graphCmp.css">
     <link rel="stylesheet" href="./data/css/innerCmp.css">
     <link rel="stylesheet" href="./data/css/splashCmp.css">
+    <link rel="stylesheet" href="./data/css/errorCmp.css">
     
     <link rel="stylesheet" href="./data/css/pageAnim.css">
     
@@ -17,7 +18,7 @@
   </head>
   <body>
     <div class="pt-perspective">
-      <div class="pt-page pt-page-1 pt-page-current">
+      <div class="pt-page pt-page-splash pt-page-current">
         <div class="splash-container">
           <div class="inner">
             <div class="loading-label">
@@ -25,67 +26,41 @@
                 <svg class="spinner" width="66px" height="66px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
                   <circle class="path" fill="none" stroke-width="3" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
                 </svg>
-                <br/>
-                Loading
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="pt-page pt-page-2 graph-page">
+      <div class="pt-page pt-page-graph graph-page">
         <div class="graph-container"></div>
+      </div>
+
+      <div class="pt-page pt-page-error error-page">
+          <div class="inner">
+            <div class="error-container">
+              <h1 id="error-title">Unknown error</h1>
+              <p id="error-message">No, no, can't help. Sorry.</p>
+            </div>
+        </div>
       </div>
     </div>
     
-    <script src="http://d3js.org/d3.v3.js"></script>
+    <script src="./data/js/vendor/d3.min.js"></script>
     
     <script src="./data/js/components/configCmp.js"></script>
     <script src="./data/js/components/graphCmp.js"></script>
     <script src="./data/js/components/lineCmp.js"></script>
+    
     <script src="./data/js/collections/linksColl.js"></script>
     <script src="./data/js/collections/nodesColl.js"></script>
+    
     <script src="./data/js/filters/linksFlt.js"></script>
     <script src="./data/js/filters/nodesFlt.js"></script>
-    <script src="./data/js/filters/flatSecurityPermissions.js"></script>
-    <script src="./data/js/components/awsCmp.js"></script>
+    <script src="./data/js/filters/flatSecurityPermissionsFlt.js"></script>
     
-    <script>
-      window.onload = function(){
-        var config = APP.configCmp({
-              linksFilter: APP.linksFlt,
-              nodesFilter: APP.nodesFlt
-            }),
-            lineConfig = APP.lineCmp(config.link),
-            svgFrame = APP.graphCmp.createFrame(config.graph);
-
-        d3.json( config.data.url, function(error, response) {
-          var nodesCollection = APP.nodesColl.createFrom(response, config.graph, config.data.filterNodes),
-              linksCollection = APP.linksColl.createFrom(nodesCollection, config.data.filterLinks);
-          
-          // Setup links
-          APP.graphCmp.createLinks(svgFrame, linksCollection, lineConfig);
-          
-          // Setup nodes
-          APP.graphCmp.createNodes(svgFrame, nodesCollection);
-          
-          // Setup additional effects
-          APP.graphCmp.createHoverEffect();
-          
-          // After load
-          var _splash = d3.select('.pt-page-1'),
-              _view = d3.select('.pt-page-2');
-          
-          _splash.attr({
-            'class': [ _splash.attr('class'), 'pt-page-moveToTopEasing', 'pt-page-ontop'].join(' ').trim()
-          });
-          
-          _view.attr({
-            'class': [ _view.attr('class'), 'pt-page-moveFromBottom', 'pt-page-current'].join(' ').trim()
-          });
-        });
-        
-      };
-    </script>
+    <script src="./data/js/utils/classUtil.js"></script>
+    
+    <script src="./data/js/app.js"></script>
   </body>
 </html>

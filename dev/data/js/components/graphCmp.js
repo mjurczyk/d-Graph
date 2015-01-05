@@ -1,4 +1,5 @@
 !(function (global) {
+  
   // Graph component
   global.APP = global.APP || {};
   
@@ -10,23 +11,14 @@
     
     return global.APP.graphCmp.graphFrame = d3.select(config.container)
             .attr({
-              'class': 'inner'
+              'class': 'full-scale-graph'
             })
             .append('svg')
             .attr({
               width: config.diameter,
               height: config.diameter,
             })
-            .append('g')
-            .attr({
-              transform: [
-                'translate(',
-                config.radius,
-                ',',
-                config.radius,
-                ')'
-              ].join('')
-            });
+            .append('g');
     
   };
   
