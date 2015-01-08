@@ -21,7 +21,8 @@ var AWS = require('aws-sdk'),
         ACL: null                // TODO
       },
       loadCallback = null,
-      generatorCallback = null;
+      generatorCallback = null,
+      outputPath = './vpcData';
   
   if( !AWS ) return;
   
@@ -101,8 +102,6 @@ var AWS = require('aws-sdk'),
         itrVPC,
         genVPC,
         
-        outputPath,
-        
         vpc,
         subnets,
         loadBalancers,
@@ -123,8 +122,6 @@ var AWS = require('aws-sdk'),
     // ==============================
     // Output location
     // ==============================
-    outputPath = './vpcData';
-      
     fs.exists(outputPath, function (exists) {
       if(exists === false){
         fs.mkdir(outputPath, function (err) {
@@ -185,8 +182,24 @@ var AWS = require('aws-sdk'),
   // ================================
   generatorCallback = function () {
     
-    // TODO ( removed )
+    console.log('listing all files ...');
     
+    fs.readdir(outputPath, function (err, files) {
+      if( err !== null ){
+        throw err; 
+      }
+      
+      // Filter out useless stuff
+      files = files.filter( function (file) {
+        return file.indexOf('.json') === file.length - '.json'.length; 
+      });
+      
+      fs.writeFile(outputPath + '/__files__', JSON.stringify(files), function (err) {
+        if( err !== null ){
+          throw err; 
+        }
+      });
+    });
   };
   
   // ================================

@@ -5,7 +5,7 @@
   
   global.APP.classUtil.add = function (element, classes) {  
     if( element && typeof element.attr === 'function' ){
-      if( classes instanceof Array ){
+      if( Array.isArray(classes) ){
         classes = classes.join(' ').trim();
       } else {
         classes = String(classes); 
@@ -26,16 +26,22 @@
     var itr;
     
     if( element && typeof element.attr === 'function' ){
-      if( classes instanceof String ){
+      if( typeof classes === 'string' ){
         classes = classes.split(' ');
       } else {
-        classes = Array(classes); 
+        classes = classes || []; 
       }
       
       itr = classes.length;
       while(itr--){
         element.attr({
-          'class': element.attr('class').split(classes[itr]).join('').trim()
+          'class': element.attr('class')
+                          .split(classes[itr])
+                          .map(function (element) {
+                            return element.trim();
+                          })
+                          .join(' ')
+                          .trim()
         });
       }
       
@@ -49,7 +55,4 @@
     
     return element;
   };
-  
-  
-  
 })(this);

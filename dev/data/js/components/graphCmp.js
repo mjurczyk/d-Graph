@@ -7,19 +7,90 @@
   
   global.APP.graphCmp = {};
   
-  global.APP.graphCmp.createFrame = function (config) {
+  global.APP.graphCmp.init = function () {
+    var graphCmp = this;
     
-    return global.APP.graphCmp.graphFrame = d3.select(config.container)
-            .attr({
-              'class': 'full-scale-graph'
-            })
+    graphCmp.createNavigation();
+  };
+  
+  global.APP.graphCmp.createGraph = function (vpcFile) {
+    var config = global.APP.configCmp({
+          linksFilter: global.APP.linksFlt,
+          nodesFilter: global.APP.nodesFlt,
+          vpcTarget: vpcFile
+        }),
+        lineConfig = global.APP.lineCmp(config.link),
+        svgFrame = global.APP.graphCmp.createFrame(config.graph),
+        menuEl = d3.select('.pt-page-graph .nav-tab'),
+        labelEl = d3.select('.graph-title');
+    
+    d3.json( config.data.url, function(error, response) {
+      var nodesCollection,
+          linksCollection;
+      
+      if( error ){
+        return global.APP.showError(
+          'Unknown JSON file', 
+          [
+            'Application was unable to load the, so called, "' + config.data.url + '".',
+            'You sure it exists, right?<br/>',
+            '[ Err: ' + error. responseText  + ' ]'
+          ].join(' ')
+        );
+      }
+      
+      nodesCollection = global.APP.nodesColl.createFrom(response, config.graph, config.data.filterNodes);
+      linksCollection = global.APP.linksColl.createFrom(nodesCollection, config.data.filterLinks);
+
+      // Setup links
+      global.APP.graphCmp.createLinks(svgFrame, linksCollection, lineConfig);
+
+      // Setup nodes
+      global.APP.graphCmp.createNodes(svgFrame, nodesCollection);
+
+      // Setup additional effects
+      global.APP.graphCmp.createHoverEffect();
+      
+      // Setup controls
+      global.APP.controlsCmp.init(svgFrame);
+      
+      // Setup label
+      labelEl.text( config.data.url.replace(/^.*[\\\/]|.json/g, '').toUpperCase() );
+      
+      global.APP.pageUtil.swapPages(null, '.pt-page-graph', 'bottom');
+      
+      global.APP.classUtil.remove(menuEl, 'no-graph-selected');
+    });
+  };
+  
+  global.APP.graphCmp.createFrame = function (config) {
+    var graphEl = d3.select('.' + config.container);
+    
+    if( !graphEl.empty() ){
+       graphEl.remove();
+    }
+    
+    global.APP.graphCmp.graphFrame = d3.select('.pt-page-graph').append('div')
+            .attr('class', config.container + ' full-scale-graph')
             .append('svg')
             .attr({
               width: config.diameter,
-              height: config.diameter,
+              height: config.diameter
             })
+            .append('g')    // Dragging mask
             .append('g');
     
+    global.APP.graphCmp.graphFrame.append('rect')
+            .attr({
+              width: config.diameter,
+              height: config.diameter,
+              x: -config.diameter/2,
+              y: -config.diameter/2,
+              fill: 'rgba(0, 0, 0, 0)'
+            });
+    
+    
+    return global.APP.graphCmp.graphFrame;
   };
   
   global.APP.graphCmp.createLinks = function (container, collection, config) {
@@ -129,6 +200,38 @@
            .classed('node-not-selected', false);
     });
     
+  };
+  
+  global.APP.graphCmp.createNavigation = function () {
+    global.APP.navCmp.create(
+      '.pt-page-graph',
+      [
+        {
+          label: 'Sidetab',
+          iconCls: 'nav-sidetab',
+          halfVisible: false,
+          callback: function () {
+
+          }
+        },
+        {
+          label: 'Choose a VPC file',
+          iconCls: 'nav-files',
+          halfVisible: true,
+          callback: function () {
+            global.APP.pageUtil.swapPages(null, '.pt-page-file-select', 'top');
+          }
+        },
+        {
+          label: 'Print the page',
+          iconCls: 'nav-print',
+          halfVisible: true,
+          callback: function () {
+            window.print();
+          }
+        }
+      ]
+    );
   };
   
 })(this);

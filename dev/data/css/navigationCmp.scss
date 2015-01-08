@@ -1,0 +1,89 @@
+.nav-tab {
+  position: absolute;
+  
+  bottom: 0px;
+  left: 0px;
+  
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  
+  line-height: 0;
+  
+  background-image: url(../img/splash-cmp-background.png);
+  background-repeat: repeat;
+  background-position: top 0px left 0px;
+  
+  z-index: 1001;
+  
+  .nav-list {
+    
+    .nav-btn {
+      display: inline-block;
+      
+      width: 56px;
+      height: 45px;
+      
+      background-image: url(../img/navigation-icons.png);
+      background-position: top 0px left 0px;
+      background-repeat: no-repeat;
+    
+      &.nav-subtle {
+        opacity: 0.8;
+      }
+      
+      &.nav-subtle:hover {
+        opacity: 1.0; 
+      }
+      
+      /* Nav Buttons' Types */
+      &.nav-sidetab {
+        background-position: top 0px left 0px;
+      }
+
+      &.nav-files {
+        background-position: top 0px left -56px;
+      }
+
+      &.nav-mail {
+        background-position: top 0px left -112px;
+      }
+
+      &.nav-print {
+        background-position: top 0px left -168px;
+      }
+    }
+  }
+  
+  &.no-graph-selected:after {
+    position: absolute;
+    
+    bottom: 80px;
+    left: 55px;
+    
+    width: 200px;
+    height: 200px;
+    
+    background-image: url(../img/file-select-hint-arrow.png);
+    background-position: bottom 0px left 0px;
+    background-repeat: no-repeat;
+    
+    content: '';
+    
+    animation: fileSelectArrowFade 1s ease-in alternate infinite;
+    
+    z-index: 1;
+  }
+}
+
+@keyframes fileSelectArrowFade {
+	from { 
+      opacity: 1.0;
+      bottom: 80px;
+    }
+	to { 
+      opacity: 0.5;
+      bottom: 75px;
+    }
+}

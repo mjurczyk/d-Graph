@@ -1,3 +1,7 @@
+$graph-line-in: #f99;
+$graph-line-out: #9f9;
+$graph-line-connection: #58f;
+
 .graph-page {
   background-color: #f3f3f3; 
 }
@@ -8,59 +12,148 @@
   top: 50%;
   left: 50%;
   
+  z-index: 1000;
+  
   &, svg {
     width: 100%;
     height: 100%;
     
-    /* TODO: Hack? pls don't judge :'( */
     overflow: visible;
+  }
+  
+  .node {
+    font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    fill: #0a0a0a;
+    transition: 0.2s all;
+  }
+
+  .node:hover {
+    font-size: 20px;
+
+    cursor: pointer;
+  }
+
+  .node-target {
+
+  }
+
+  .node-source {
+
+  }
+
+  .node-not-selected {
+    opacity: 0.2;
+  }
+
+  .link {
+    stroke: $graph-line-connection;
+    stroke-opacity: .1;
+    fill: none;
+  }
+
+  .link-target,
+  .link-source {
+    stroke-opacity: 1;
+    stroke-width: 2px; 
+  }
+
+  .link-target {
+    stroke: $graph-line-in;
+  }
+
+  .link-source {
+    stroke: $graph-line-out;
+  }
+
+  .link-not-selected {
+    opacity: 0.1; 
   }
 }
 
-.node {
-  font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
-  fill: #0a0a0a;
-  transition: 0.2s all;
-}
-
-.node:hover {
-  font-size: 20px;
+.graph-legend {
+  position: absolute;
   
-  cursor: pointer;
-}
-
-.node-target {
+  display: inline-block;
   
-}
-
-.node-source {
+  right: 30px;
+  bottom: 90px;
   
+  border: solid 1px #ccc;
+  
+  background-color: #fff;
+  
+  padding: 5px;
+  
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: 400;
+  color: #000;
+  
+  z-index: 1001;
+  
+  &.no-graph-selected {
+    display: none; 
+  }
+  
+  .legend-line {
+    position: relative;
+    
+    padding-left: 30px;
+    padding-right: 5px;
+    
+    &:after {
+      position: absolute;
+      
+      height: 3px;
+      width: 20px;
+      
+      background-color: #000;
+      
+      left: 5px;
+      top: 9px;
+      
+      content: '';
+      
+      z-index: 1;
+    }
+    
+    /* Legend lines' types */
+    &.line-out:after {
+      background-color: $graph-line-out;
+    }
+    
+    &.line-in:after {
+      background-color: $graph-line-in;
+    }
+    
+    &.line-connected:after {
+      background-color: $graph-line-connection;
+    }
+  }
 }
 
-.node-not-selected {
-  opacity: 0.2;
+.graph-title {
+  position: absolute;
+
+  display: none;
+
+  bottom: 50px;
+  left: 0px;
+
+  font-family: 'Roboto';
+  font-size: 38px;
+  font-weight: 100;
+  color: #000;
+  
+  z-index: 1005;
 }
 
-.link {
-  stroke: #58f;
-  stroke-opacity: .1;
-  fill: none;
-}
-
-.link-target,
-.link-source {
-  stroke-opacity: 1;
-  stroke-width: 2px; 
-}
-
-.link-target {
-  stroke: #f99;
-}
-
-.link-source {
-  stroke: #9f9;
-}
-
-.link-not-selected {
-  opacity: 0.1; 
+@media print {
+  .graph-legend {
+    display: none; 
+  }
+  
+  .graph-title {
+    display: block; 
+  }
 }

@@ -16,7 +16,7 @@ var
     // Server
     server = {
       host: '127.0.0.1',
-      port: 80
+      port: 1337
     };
 
 gulp.task('default', ['veni', 'vidi', 'vici']);
@@ -29,7 +29,7 @@ gulp.task('veni', function () {
       .pipe(gulp.dest(dist));
   
   // Copy AWS resources
-  gulp.src([node + 'vpcData/*.json'])
+  gulp.src([node + 'vpcData/*.json', node + 'vpcData/__files__'])
       .pipe(gulp.dest(dist + 'data/json/'));
   
   // Build SCSS

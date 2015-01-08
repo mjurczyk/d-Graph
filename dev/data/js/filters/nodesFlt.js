@@ -12,7 +12,8 @@
         itr,
         instance,
         subnet,
-        securityGroups;
+        securityGroupsIn,
+        securityGroupsOut;
     
     // Setup subnets
     itr = collection.subnets.length;
@@ -38,16 +39,26 @@
         continue;
       }
       
-      securityGroups = (instance.SecurityGroups.map(function (group) {
+      securityGroupsOut = (instance.SecurityGroups.map(function (group) {
         return group.GroupId;
       }) || []);
       
+      securityGroupsIn = global.APP.securityPermissionsFlt.flatGroupConnections(collection.securityGroups, securityGroupsOut);
+
       subnet.children.push({
         key: (instance.Tags.filter(function (tag) {
           return tag.Key === 'Name';
         })[0].Value || 'Undefined'),
-        securityGroupsIn: global.APP.flatSecurityPermissionsFlt(collection.securityGroups, securityGroups),
-        securityGroupsOut: securityGroups
+        securityGroupsIn: securityGroupsIn,
+        securityGroupsOut: securityGroupsOut,
+        
+        // IP matching
+        ipAddress: {
+          public: instance.PublicIpAddress,
+          private: instance.PrivateIpAddress
+        },
+        ipPermIn: global.APP.securityPermissionsFlt.flatIpPermissions(collection.securityGroups, securityGroupsIn, 'ingress'),
+        ipPermOut: global.APP.securityPermissionsFlt.flatIpPermissions(collection.securityGroups, securityGroupsOut, 'egress')
       });
     }
     

@@ -12,8 +12,10 @@
     nodes.forEach(function (node) {
       
       var connectionsOut = nodes.filter(function (sibling) {
-            var i, j;
-        
+            var i, j,
+                ipAddress;
+          
+            // Test security groups
             i = sibling.securityGroupsIn.length;
             while(i--){
               j = node.securityGroupsOut.length;
@@ -23,6 +25,18 @@
                 }
               }
             }
+            
+            // Test IP permissions
+            i = sibling.ipPermIn.length;
+            while(i--){
+              ipAddress = sibling.ipPermIn[i];
+              
+              if( cidr_match(String(node.ipAddress.public), ipAddress) || cidr_match(String(node.ipAddress.private), ipAddress) ){
+                return true; 
+              }
+            }
+        
+        
             return false;
           }),
           strNode,

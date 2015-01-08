@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>
-      Test
-    </title>
+    <title>d'Graph | AWS Cloud Dependency Graphing Tool</title>
+    
+    <link rel="shortcut icon" href="./data/img/fav-icon.png">
     
     <link rel="stylesheet" href="./data/css/globalCmp.css">
     <link rel="stylesheet" href="./data/css/graphCmp.css">
     <link rel="stylesheet" href="./data/css/innerCmp.css">
     <link rel="stylesheet" href="./data/css/splashCmp.css">
     <link rel="stylesheet" href="./data/css/errorCmp.css">
+    <link rel="stylesheet" href="./data/css/navigationCmp.css">
+    <link rel="stylesheet" href="./data/css/fileSelectorCmp.css">
     
     <link rel="stylesheet" href="./data/css/pageAnim.css">
     
     <link href='http://fonts.googleapis.com/css?family=Roboto:100,400,700' rel='stylesheet' type='text/css'>
-    
   </head>
   <body>
     <div class="pt-perspective">
@@ -34,6 +35,17 @@
 
       <div class="pt-page pt-page-graph graph-page">
         <div class="graph-container"></div>
+        <div class="graph-legend no-graph-selected">
+          <div class="legend-line line-out">Accesses ( ingress )</div>
+          <div class="legend-line line-in">Accessed by ( egress )</div>
+          <div class="legend-line line-connected">Connected ( any )</div>
+        </div>
+        <div class="graph-title"></div>
+        <div class="nav-tab no-graph-selected"></div>
+      </div>
+      
+      <div class="pt-page pt-page-file-select">
+        <div class="inner file-select"></div>
       </div>
 
       <div class="pt-page pt-page-error error-page">
@@ -47,10 +59,14 @@
     </div>
     
     <script src="./data/js/vendor/d3.min.js"></script>
+    <script src="./data/js/vendor/cidrmatch.min.js"></script>
     
     <script src="./data/js/components/configCmp.js"></script>
     <script src="./data/js/components/graphCmp.js"></script>
     <script src="./data/js/components/lineCmp.js"></script>
+    <script src="./data/js/components/navigationCmp.js"></script>
+    <script src="./data/js/components/fileSelectorCmp.js"></script>
+    <script src="./data/js/components/controlsCmp.js"></script>
     
     <script src="./data/js/collections/linksColl.js"></script>
     <script src="./data/js/collections/nodesColl.js"></script>
@@ -59,6 +75,7 @@
     <script src="./data/js/filters/nodesFlt.js"></script>
     <script src="./data/js/filters/flatSecurityPermissionsFlt.js"></script>
     
+    <script src="./data/js/utils/pageUtil.js"></script>    
     <script src="./data/js/utils/classUtil.js"></script>
     
     <script src="./data/js/app.js"></script>

@@ -1,7 +1,7 @@
 {
-  "name": "D-Graph",
-  "version": "0.1.1",
-  "desc": "Graphing tool for AWS Cloud Systems",
+  "name": "d'Graph",
+  "version": "0.2.1",
+  "desc": "Graphing tool AWS Cloud Systems",
   "devDependencies": {
     "aws-sdk": "^2.1.4",
     "gulp": "^3.8.10",
