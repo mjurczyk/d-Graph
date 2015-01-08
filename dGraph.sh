@@ -77,11 +77,28 @@ fLaunchGulp() {
 # We need NodeJS and NPM to do
 # literally anything
 if fCheckDependency 'node' && fCheckDependency 'npm'; then
-  if fLaunchAWS; then
-  
-    fLaunchGulp
+  if [ -f ~/.aws/credentials ]; then
+    echo 'aws credentials found...'
+    
+    if fLaunchAWS; then
+      fLaunchGulp
+
+    fi
+    
+  else
+    echo 'aws credentials not found...'
+    echo 'Please fill in the credentials file and relaunch the script.'
+    if [ ! -e ~/.aws ]; then
+      mkdir ~/.aws
+    fi
+    
+    touch ~/.aws/credentials
+    echo '[default]\naws_access_key_id = \naws_secret_access_key = \n' > ~/.aws/credentials
+    open ~/.aws/credentials
     
   fi
+  
 else
   echo 'Cannot run the script, NodeJS or NPM not found. Please head to nodejs.org for moar.'  
+  
 fi

@@ -21,7 +21,6 @@
         }),
         lineConfig = global.APP.lineCmp(config.link),
         svgFrame = global.APP.graphCmp.createFrame(config.graph),
-        menuEl = d3.select('.pt-page-graph .nav-tab'),
         labelEl = d3.select('.graph-title');
     
     d3.json( config.data.url, function(error, response) {
@@ -54,12 +53,17 @@
       // Setup controls
       global.APP.controlsCmp.init(svgFrame);
       
-      // Setup label
+      // Setup label for printing
       labelEl.text( config.data.url.replace(/^.*[\\\/]|.json/g, '').toUpperCase() );
       
-      global.APP.pageUtil.swapPages(null, '.pt-page-graph', 'bottom');
+      // Clean pregraph classes
+      // Do not bundle these in a single d3 selector. D3 is wierd and
+      // if you do, you'll change all elements into an instance of the
+      // last of them :)
+      global.APP.classUtil.remove(d3.select('.pt-page-graph .nav-tab'), 'no-graph-selected');
+      global.APP.classUtil.remove(d3.select('.pt-page-graph .graph-legend'), 'no-graph-selected');
       
-      global.APP.classUtil.remove(menuEl, 'no-graph-selected');
+      global.APP.pageUtil.swapPages(null, '.pt-page-graph', 'bottom');
     });
   };
   
@@ -210,9 +214,7 @@
           label: 'Sidetab',
           iconCls: 'nav-sidetab',
           halfVisible: false,
-          callback: function () {
-
-          }
+          callback: function () {}
         },
         {
           label: 'Choose a VPC file',
