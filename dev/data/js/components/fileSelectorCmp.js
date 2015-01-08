@@ -1,6 +1,5 @@
 !(function (global) {
-  
-  // Graph component
+  // Files' Selector component
   global.APP = global.APP || {};
   
   if( typeof global.APP.fileSelectorCmp !== 'undefined' ) return;

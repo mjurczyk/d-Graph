@@ -1,5 +1,4 @@
 !(function (global) {
-  
   // Graph component
   global.APP = global.APP || {};
   

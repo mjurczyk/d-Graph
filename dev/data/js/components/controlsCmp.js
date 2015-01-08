@@ -1,5 +1,5 @@
 !(function (global) {
-  // Config component
+  // Controls component
   global.APP = global.APP || {};
   
   if( typeof global.APP.controlsCmp !== 'undefined' ) return;

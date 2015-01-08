@@ -1,4 +1,5 @@
 !(function (global) {
+  // Security permissions filter
   global.APP = global.APP || {};
   
   if( typeof global.APP.securityPermissionsFlt !== 'undefined' ) return;

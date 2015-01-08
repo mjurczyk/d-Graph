@@ -1,5 +1,5 @@
 !(function (global) {
-  
+  // Navigation component
   global.APP = global.APP || {};
   
   if( typeof global.APP.navCmp !== 'undefined' ) return;

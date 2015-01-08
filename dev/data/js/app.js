@@ -1,5 +1,4 @@
 !(function (global) {
-  // Line component
   global.APP = global.APP || {};
   
   global.APP.noop = function () {};
