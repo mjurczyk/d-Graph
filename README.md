@@ -37,4 +37,13 @@ sh dGraph.sh --sudo
 
 This will launch the whole project building. **Just give it a sec.** After that second, the tool will open a browser and it is ready to go.
 
+### Credits
+
+d'Graph uses the following to achieve its greatness:
+
+- d3.js ( http://d3js.org )
+- cidr_match (by Steve Kemp) ( https://github.com/skx/cidr_match.js )
+- AWS SDK
+- Page Transitions (by Codrops) ( https://github.com/codrops/PageTransitions )
+
 ### *
