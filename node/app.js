@@ -8,7 +8,7 @@ var AWS = require('aws-sdk'),
   // States
   // ================================
   var config = {
-        region: 'eu-west-1'
+        region: 'eu-west-1'       // TODO: should be customisable
       },
       AWS_EC2 = null,
       AWS_ELB = null,
@@ -78,7 +78,7 @@ var AWS = require('aws-sdk'),
     if( err !== null ){
       throw err; 
     }
-    //fs.writeFile('./test.json', JSON.stringify(data), function() {} );
+    
     collections.subnets = data.Subnets || [];
     
     loadCallback();
@@ -153,7 +153,6 @@ var AWS = require('aws-sdk'),
       
       fs.writeFile(outputPath + '/' + vpc.VpcId + '.json', JSON.stringify({
         
-        // Data written into the file
         vpc: vpc,
         subnets: subnets,
         instances: instances,
@@ -189,7 +188,6 @@ var AWS = require('aws-sdk'),
         throw err; 
       }
       
-      // Filter out useless stuff
       files = files.filter( function (file) {
         return file.indexOf('.json') === file.length - '.json'.length; 
       });
