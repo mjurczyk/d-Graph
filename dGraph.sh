@@ -1,4 +1,4 @@
-# D-Graph Launcher 0.1.1
+# D-Graph Launcher 0.2.1
 
 # Settings
 use_sudo=1
