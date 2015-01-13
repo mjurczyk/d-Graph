@@ -12,6 +12,7 @@ var
     dist = './dist/',
     dev = './dev/',
     node = './node/',
+    python = './python/',
     
     // Server
     server = {
@@ -31,6 +32,8 @@ gulp.task('veni', function () {
   // Copy AWS resources
   gulp.src([node + 'vpcData/*.json', node + 'vpcData/__files__'])
       .pipe(gulp.dest(dist + 'data/json/'));
+  gulp.src(python + 'vpcData/*.html')
+      .pipe(gulp.dest(dist + 'data/html/'));
   
   // Build SCSS
   gulp.src(dev + 'data/css/*.scss')

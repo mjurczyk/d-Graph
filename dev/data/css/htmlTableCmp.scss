@@ -1,0 +1,109 @@
+.pt-page-html-table {
+  position: relative;
+  
+  background-color: #fefefe;
+
+  & > div {
+    width: 100%;
+    height: 100%;
+
+    overflow: scroll; 
+    
+    font-family: 'Roboto';
+    font-size: 14px;
+    font-weight: 400;
+    
+    table, tr, td {
+      border: solid 1px #ccc;
+      border-spacing: 0;
+    }
+    
+    tr, td {
+      height: 50px;
+      
+      white-space: nowrap;
+      clear: both;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+    
+    tr:nth-child(1),
+    tr:nth-child(1) > td,
+    tr > td:first-of-type {
+      text-align: center;
+      
+      background-color: #ccc; 
+      
+      border-color: #bbb;
+    }
+    
+    tr:nth-child(1) > td:nth-child(even),
+    tr:nth-child(even) > td:first-of-type {
+      background-color: #bbb; 
+    }
+    
+    td {
+      padding: 5px;
+    }
+    
+    td.selected {
+      background-color: #dbfe8a;
+      border-color: #90bb29;
+    }
+    
+    table tr > td:first-of-type {
+      min-width: 300px; 
+    }
+    
+    table.floating-column {
+      margin-left: 300px;
+      
+      tr > td:first-of-type {
+        position: absolute;
+        
+        left: -300px;
+
+        width: 300px;
+        //padding: 20px 0px;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        animation: columnFloatIn 0.5s ease both;
+      }
+      
+      tr:not(:first-of-type) > td:first-of-type {
+        border-right: solid 3px rgba(0, 0, 0, 0.2); 
+      }
+    }
+    
+    tr:nth-child(1) > td.selected {
+      background-color: #90bb29;
+      border-color: #90bb29;
+      color: #e7f987;
+    }
+    
+    tr:not(:nth-child(1)).selected {
+      td {
+        background-color: #e7f987;
+        border-color: #83a057;
+      }
+      
+      & > td:first-of-type {
+        background-color: #83a057; 
+        color: #e7f987;
+      }
+    }
+  }
+}
+
+@keyframes columnFloatIn {
+  from {
+    left: -300px; 
+  }
+  to {
+    left: 0px; 
+  }
+}

@@ -35,7 +35,7 @@
       itr = classes.length;
       while(itr--){
         element.attr({
-          'class': element.attr('class')
+          'class': (element.attr('class') || '')
                           .split(classes[itr])
                           .map(function (element) {
                             return element.trim();

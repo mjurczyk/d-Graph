@@ -201,6 +201,8 @@
       nodes.classed('node-target', false)
            .classed('node-source', false)
            .classed('node-not-selected', false);
+    }).on('click', function (node) {
+      global.APP.htmlTableCmp.showTable(node);
     });
     
   };

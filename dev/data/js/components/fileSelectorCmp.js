@@ -63,4 +63,8 @@
     
     global.APP.classUtil.add(element, 'file-current');
   }; 
+  
+  global.APP.fileSelectorCmp.getCurrentFileName = function () {
+    return this.fileList[this.fileSelected];
+  };
 })(this);

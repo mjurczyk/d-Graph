@@ -138,7 +138,7 @@ var AWS = require('aws-sdk'),
     itrVPC = collections.VPC.length;
     genVPC = 1;
     
-    while(--itrVPC){
+    while(itrVPC--){
       vpc = collections.VPC[itrVPC];
       subnets = getSubnetsForVPC(vpc.VpcId);
       loadBalancers = getLoadBalancersForVPC(vpc.VpcId);
@@ -168,12 +168,8 @@ var AWS = require('aws-sdk'),
         } else {
           genVPC++;
         }
-      });
-      
+      }); 
     }
-    
-    
-    
   };
   
   // ================================
@@ -195,7 +191,7 @@ var AWS = require('aws-sdk'),
       fs.writeFile(outputPath + '/__files__', JSON.stringify(files), function (err) {
         if( err !== null ){
           throw err; 
-        }
+        } 
       });
     });
   };

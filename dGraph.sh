@@ -30,10 +30,12 @@ fLaunchAWS() {
   
   if [ $use_sudo -eq 1 ]; then
     if node app.js; then
+      cd ..
       return 0
     fi
   else 
     if sudo node app.js; then
+      cd ..
       return 0
     fi
   fi
@@ -43,7 +45,27 @@ fLaunchAWS() {
   return 1
 }
 
-# P2: Launch Gulp
+# P2: Build Python/HTML resources
+fLaunchPython() {
+  cd ./python
+  
+  if ! fCheckDependency 'python'; then
+    echo 'Cannot run the script without Python. Please head to python.orgfor moar.'
+    return 1
+  else
+    echo 'building html files ...'
+    if python script.py --directory './vpcData'; then
+      return 0
+    else 
+      return 1  
+    fi
+    
+  fi
+  
+  return 0
+}
+
+# P3: Launch Gulp
 fLaunchGulp() {
  if ! fCheckDependency 'gulp'; then
     
@@ -80,7 +102,7 @@ if fCheckDependency 'node' && fCheckDependency 'npm'; then
   if [ -f ~/.aws/credentials ]; then
     echo 'aws credentials found...'
     
-    if fLaunchAWS; then
+    if fLaunchAWS && fLaunchPython; then
       fLaunchGulp
 
     fi
