@@ -130,6 +130,15 @@ $graph-line-connection: #58f;
       background-color: $graph-line-connection;
     }
   }
+  
+  .legend-hint {
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    
+    text-align: center;
+    
+    border-bottom: solid 1px #eee; 
+  }
 }
 
 .graph-title {

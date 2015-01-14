@@ -3,15 +3,19 @@
   
   background-color: #fefefe;
 
-  & > div {
+  & > .table-container {
     width: 100%;
     height: 100%;
-
+    
     overflow: scroll; 
     
     font-family: 'Roboto';
     font-size: 14px;
     font-weight: 400;
+    
+    table {
+      padding-bottom: 60px; 
+    }
     
     table, tr, td {
       border: solid 1px #ccc;

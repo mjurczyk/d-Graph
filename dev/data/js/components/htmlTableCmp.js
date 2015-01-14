@@ -42,7 +42,7 @@
     var htmlTableCmp = this,
         vpcFile = global.APP.fileSelectorCmp.getCurrentFileName(),
         instanceName = targetNode.key,
-        container = d3.select('.pt-page-html-table div');
+        container = d3.select('.pt-page-html-table .table-container');
     
     global.APP.pageUtil.swapPages(null, '.pt-page-html-table', 'top');
 
@@ -51,9 +51,10 @@
       vpcFile.substr(0, vpcFile.indexOf('.json')),
       '-security-groups.html'
     ].join(''), function (content) {
-      d3.select('.pt-page-html-table div').html(content);
+      d3.select('.pt-page-html-table .table-container').html(content);
       
       htmlTableCmp.init(container);
+      htmlTableCmp.createNavigation();
       htmlTableCmp.selectNodeInTable(container, instanceName);
     });
   };
@@ -88,5 +89,39 @@
         }
       }
     });
+  };
+  
+  global.APP.htmlTableCmp.createNavigation = function () {
+    if(!d3.select('.pt-page-html-table .nav-tab > *').empty()){
+      return;
+    }
+    
+    global.APP.navCmp.create(
+      '.pt-page-html-table',
+      [
+        {
+          label: 'Sidetab',
+          iconCls: 'nav-sidetab',
+          halfVisible: false,
+          callback: function () {}
+        },
+        {
+          label: 'Return to the graph',
+          iconCls: 'nav-return',
+          halfVisible: true,
+          callback: function () {
+            global.APP.pageUtil.swapPages(null, '.pt-page-graph', 'bottom');
+          }
+        },
+        {
+          label: 'Print the page',
+          iconCls: 'nav-print',
+          halfVisible: true,
+          callback: function () {
+            window.print();
+          }
+        }
+      ]
+    );
   };
 })(this);
