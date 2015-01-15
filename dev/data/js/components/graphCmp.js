@@ -226,6 +226,14 @@
           }
         },
         {
+          label: 'Table preview',
+          iconCls: 'nav-table',
+          halfVisible: true,
+          callback: function () {
+            global.APP.htmlTableCmp.showTable();
+          }
+        },
+        {
           label: 'Print the page',
           iconCls: 'nav-print',
           halfVisible: true,

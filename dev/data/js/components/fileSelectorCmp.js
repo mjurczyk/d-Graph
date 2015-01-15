@@ -46,7 +46,6 @@
     var fileSelectorCmp = this;
     
     fileSelectorCmp.fileList = list || [];
-    fileSelectorCmp.pickFile(0);
     fileSelectorCmp.createFileListView();
   };
   
@@ -65,6 +64,6 @@
   }; 
   
   global.APP.fileSelectorCmp.getCurrentFileName = function () {
-    return this.fileList[this.fileSelected];
+    return this.fileList[this.fileSelected] || '';
   };
 })(this);

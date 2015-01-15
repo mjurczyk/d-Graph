@@ -41,26 +41,29 @@
   global.APP.htmlTableCmp.showTable = function (targetNode) {
     var htmlTableCmp = this,
         vpcFile = global.APP.fileSelectorCmp.getCurrentFileName(),
-        instanceName = targetNode.key,
+        instanceName = (targetNode || {}).key,
         container = d3.select('.pt-page-html-table .table-container');
     
-    global.APP.pageUtil.swapPages(null, '.pt-page-html-table', 'top');
-
     d3.text([
       './data/html/',
       vpcFile.substr(0, vpcFile.indexOf('.json')),
       '-security-groups.html'
     ].join(''), function (content) {
-      d3.select('.pt-page-html-table .table-container').html(content);
-      
-      htmlTableCmp.init(container);
-      htmlTableCmp.createNavigation();
-      htmlTableCmp.selectNodeInTable(container, instanceName);
+      if(content !== null){
+        d3.select('.pt-page-html-table .table-container').html(content);
+        
+        htmlTableCmp.init(container);
+        htmlTableCmp.createNavigation();
+        htmlTableCmp.selectNodeInTable(container, instanceName);   
+        global.APP.classUtil[instanceName ? 'remove' : 'add'](container, ['no-selection']);
+        global.APP.pageUtil.swapPages(null, '.pt-page-html-table', 'top');
+      }
     });
   };
   
   global.APP.htmlTableCmp.selectNodeInTable = function (container, instanceName) {
-    var selectedColumn = -1;
+    var selectedColumn = -1,
+        targetScrollCell;
     
     d3.selectAll('.pt-page-html-table').selectAll('tr').each(function (el, index) {
       var tableRow = d3.select(this),
@@ -74,14 +77,14 @@
           if(desiredNode){
             global.APP.classUtil.add(tableCell, 'selected');
             
-            container.node().scrollLeft = tableCell.node().offsetLeft - window.innerWidth/2 + tableCell.node().offsetWidth/2;
+            targetScrollCell = this;
             
             selectedColumn = cellIndex;
           } else {
             global.APP.classUtil.remove(tableCell, 'selected');
           }
         });
-      } else if(index > 0) {
+      } else if(index > 0 && !intersectingCell.empty()) {
         global.APP.classUtil.add(intersectingCell, 'selected');
         
         if(intersectingCell.text().trim()){
@@ -89,6 +92,10 @@
         }
       }
     });
+    
+    if(targetScrollCell){
+      container.node().scrollLeft = targetScrollCell.offsetLeft - window.innerWidth/2 + targetScrollCell.offsetWidth/2;     
+    }
   };
   
   global.APP.htmlTableCmp.createNavigation = function () {

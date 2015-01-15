@@ -18,8 +18,11 @@
     }
     
     table, tr, td {
-      border: solid 1px #ccc;
       border-spacing: 0;
+    }
+    
+    table {
+      border: none; 
     }
     
     tr, td {
@@ -27,6 +30,8 @@
       
       white-space: nowrap;
       clear: both;
+      
+      border: solid 1px #ccc;
     }
     
     tr:nth-child(even) {
@@ -89,16 +94,8 @@
       color: #e7f987;
     }
     
-    tr:not(:nth-child(1)).selected {
-      td {
-        background-color: #e7f987;
-        border-color: #83a057;
-      }
-      
-      & > td:first-of-type {
-        background-color: #83a057; 
-        color: #e7f987;
-      }
+    &:not(.no-selection) tr:not(:nth-child(1)):not(.selected) {
+      display: none; 
     }
   }
 }
