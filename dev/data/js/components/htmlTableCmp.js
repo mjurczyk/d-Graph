@@ -29,7 +29,6 @@
         }
       }
       
-      // floatingColumn
       floatingColumn.each(function () {
         this.style.top = (cumulativeHeight - scrollValue.y) + 'px';
         

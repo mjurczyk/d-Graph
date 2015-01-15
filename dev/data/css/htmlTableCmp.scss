@@ -15,14 +15,11 @@
     
     table {
       padding-bottom: 60px; 
+      border: none; 
     }
     
     table, tr, td {
       border-spacing: 0;
-    }
-    
-    table {
-      border: none; 
     }
     
     tr, td {
@@ -50,7 +47,7 @@
     
     tr:nth-child(1) > td:nth-child(even),
     tr:nth-child(even) > td:first-of-type {
-      background-color: #bbb; 
+      // background-color: #bbb; 
     }
     
     td {
@@ -75,11 +72,10 @@
         left: -300px;
 
         width: 300px;
-        //padding: 20px 0px;
-
+        
         overflow: hidden;
         text-overflow: ellipsis;
-
+        
         animation: columnFloatIn 0.5s ease both;
       }
       
