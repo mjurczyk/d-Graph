@@ -20,7 +20,7 @@ d'Graph is an efficacious graphing tool that cooperates well with AWS Cloud Syst
 There are some limpid prerequisites for d'Graph. Make sure you check them out before launching the script, otherwise the script will be mean, tell you step-by-step what you are missing and hurt your feelings.
 
 - **NodeJS** and NPM installed ( http://nodejs.org )
-- **GulpJS** installed ( http://goo.gl/RxXrpe ) ( If you won't be able to insstall it, the script will)
+- **GulpJS** installed ( http://goo.gl/RxXrpe ) ( If you won't be able to install it, the script will)
 - **Internet browser** capable of browsing the Internet
 
 ### Running
