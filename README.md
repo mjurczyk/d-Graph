@@ -29,10 +29,10 @@ First, **fetch the whole project** from the GitHub.
 
 Second, **fulfill** the requirements.
 
-At last, run **dGraph.sh** ( preferably with sudo ).
+At last, run **dGraph.sh**.
 
 ```
-sh dGraph.sh --sudo
+sh dGraph.sh [--sudo]
 ```
 
 This will launch the whole project building. **Just give it a sec.** After that second, the tool will open a browser and it is ready to go.
